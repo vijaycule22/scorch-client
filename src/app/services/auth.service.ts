@@ -9,7 +9,7 @@ import { JwtHelperService } from "@auth0/angular-jwt";
   providedIn: "root",
 })
 export class AuthService {
-  private apiUrl = "http://localhost:4000/api/"; // Replace with your backend URL
+  private apiUrl = "https://scorch-server-production.up.railway.app/api/"; // Replace with your backend URL
   private jwtHelper = new JwtHelperService();
   private dataSource = new BehaviorSubject<boolean>(false); // Default value
   currentData = this.dataSource.asObservable();

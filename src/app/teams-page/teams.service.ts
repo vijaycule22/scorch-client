@@ -7,7 +7,7 @@ import { Router } from "@angular/router";
   providedIn: "root",
 })
 export class TeamsService {
-  apiUrl = "http://localhost:4000/api";
+  apiUrl = "https://scorch-server-production.up.railway.app/api";
   playerRoles = ["Bat", "Bowl", "All", "WK", "All", "All"];
 
   constructor(public http: HttpClient, private router: Router) {}

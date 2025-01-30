@@ -11,7 +11,7 @@ import { Observable } from "rxjs";
 export class AuthInterceptor implements HttpInterceptor {
   private excludedUrls: string[] = [
     "api/auth/login", // Adjust the paths based on your API structure
-    "api/auth/signup",
+    "api/auth/signup", 
   ];
 
   intercept(
