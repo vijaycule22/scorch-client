@@ -1,0 +1,40 @@
+<!-- <div class="card absolute w-full">
+    <p-menubar [model]="items" >
+        <ng-template #end>
+            <div class="flex items-center gap-2">
+                <input type="text" pInputText placeholder="Search" class="w-36" />
+                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+            </div>
+            <label *ngIf="currentUserInfo">Welcome {{currentUserInfo?.name}}!</label>
+        </ng-template>
+    </p-menubar>
+ 
+</div>
+ -->
+
+
+
+<p-menubar [model]="items">
+    <ng-template #start>
+       <label for="">LOGO</label>
+    </ng-template>
+    <ng-template #item let-item let-root="root">
+        <a pRipple class="flex align-items-center p-menubar-item-link">
+            <span>{{ item.label }}</span>
+        </a>
+    </ng-template>
+    <ng-template #end>
+        <div class="flex align-items-center gap-2">
+            <input type="text" pInputText placeholder="Search" class="w-36" />
+            <label *ngIf="currentUserInfo">Welcome {{currentUserInfo?.name}}!</label>
+
+            <div class="card flex justify-center">
+                <p-menu #menu [model]="userList" [popup]="true" />
+                <button *ngIf="!currentUserInfo" pButton label="Sign In" routerLink="/signin" icon="pi pi-user" class="w-full" type="submit" ></button>
+
+                <p-avatar *ngIf="currentUserInfo" (click)="menu.toggle($event)"  image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+
+            </div>
+        </div>
+    </ng-template>
+</p-menubar>

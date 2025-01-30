@@ -1,0 +1,29 @@
+
+
+import { Injectable } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
+import { AuthService } from './services/auth.service'; // Example service to manage authentication
+import { MessageService } from 'primeng/api';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AdminGaurd implements CanActivate {
+  constructor(private authService: AuthService, private router: Router, private messageService: MessageService) {}
+
+
+  canActivate(): boolean {
+    if (this.authService.isAdmin()) { 
+      return true;
+    } else {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'warn',
+        detail: 'Please login to access this page',
+        life: 3000,
+      });
+      this.router.navigate(['/signin']); // Redirect to login if not authenticated
+      return false;
+    }
+  }
+}

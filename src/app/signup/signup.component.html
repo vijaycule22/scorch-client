@@ -1,0 +1,47 @@
+<div class="flex justify-content-center align-items-center min-h-screen min-w-screen overflow-hidden">
+    <div class="surface-card p-4 shadow-2 border-round w-full lg:w-3">
+      <div class="text-center mb-5">
+        <img src="public/log.webp" alt="Image" height="50" class="mb-3">
+        <div class="text-900 text-3xl font-medium mb-3">Create an Account</div>
+        <span class="text-600 font-medium line-height-3">Already have an account?</span>
+        <p-button label="Sign in now!" [link]="true" (click)="router.navigate(['/signin'])"></p-button>
+      </div>
+  
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div>
+          <input id="username" type="text" pInputText placeholder="Username" class="w-full mb-3" formControlName="username">
+          <small *ngIf="signupForm?.get('username')?.invalid && signupForm?.get('username')?.touched" class="p-error">
+            Username is required and must be at least 3 characters.
+          </small>
+  
+          <input id="email" type="email" pInputText placeholder="Email address" class="w-full mb-3" formControlName="email">
+          <small *ngIf="signupForm?.get('email')?.invalid && signupForm?.get('email')?.touched" class="p-error">
+            Please enter a valid email address.
+          </small>
+  
+          <input id="password" type="password" pInputText placeholder="Password" class="w-full mb-3" formControlName="password">
+          <small *ngIf="signupForm?.get('password')?.invalid && signupForm?.get('password')?.touched" class="p-error">
+            Password is required and must be at least 6 characters.
+          </small>
+  
+          <input id="confirmPassword" type="password" pInputText placeholder="Confirm Password" (change)="checkPasswords()" class="w-full mb-3" formControlName="confirmPassword">
+          <small *ngIf="signupForm?.get('confirmPassword')?.invalid && signupForm?.get('confirmPassword')?.touched" class="p-error">
+            Please confirm your password.
+          </small>
+  
+          <div class="flex align-items-center justify-content-between mb-6">
+            <div class="flex align-items-center">
+              <p-checkbox id="terms" [binary]="true" styleClass="mr-2" formControlName="terms"></p-checkbox>
+              <label for="terms" class="text-900">I agree to the Terms & Conditions</label>
+            </div>
+            <small *ngIf="signupForm?.get('terms')?.invalid && signupForm?.get('terms')?.touched" class="p-error">
+              You must accept the terms.
+            </small>
+          </div>
+  
+          <button pButton pRipple label="Sign Up" icon="pi pi-user-plus" class="w-full" type="submit" [disabled]="signupForm.invalid"></button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
