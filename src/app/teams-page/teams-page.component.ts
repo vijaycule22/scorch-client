@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { MessageService } from "primeng/api";
 import { TeamsService } from "./teams.service";
 import { AuthService } from "../services/auth.service";
+import { firstValueFrom } from "rxjs";
 
 @Component({
   selector: "app-teams-page",
@@ -20,7 +21,7 @@ export class TeamsPageComponent {
   currentUser: any;
   playing11s: any[] = [];
   teamId!: any;
-  showPlayersPage:boolean = false;
+  showPlayersPage: boolean = false;
   showPlaying11: boolean = false;
 
   selectedTeam!: any;
@@ -39,14 +40,15 @@ export class TeamsPageComponent {
   }
 
   async getPlaying11s() {
-    try{
+    try {
       this.teamService.getPlaying11ByUser(this.currentUser.id).subscribe({
         next: (response) => {
           this.playing11s = response;
           console.log(this.players);
           this.playing11s.map((player: any) => {
             if (player.team_id === this.teamId) {
-              this.playing11[player.playing11_position - 1] = this.getPlayerById(player.player_id); 
+              this.playing11[player.playing11_position - 1] =
+                this.getPlayerById(player.player_id);
             }
           });
           this.showPlaying11 = true;
@@ -59,8 +61,7 @@ export class TeamsPageComponent {
           });
         },
       });
-    }
-    catch (error) {
+    } catch (error) {
       this.messageService.add({
         severity: "error",
         summary: "Error",
@@ -72,9 +73,8 @@ export class TeamsPageComponent {
   getPlayerById(id: any) {
     return this.players.find((player) => player.id === id);
   }
-    
 
- async getTeams() {
+  async getTeams() {
     try {
       await this.teamService.getTeams().subscribe({
         next: (response) => {
@@ -114,32 +114,33 @@ export class TeamsPageComponent {
     try {
       this.showPlayersPage = false;
       this.showPlaying11 = false;
-    
       this.teamId = event.id;
+
       console.log(event);
-      await this.teamService.getPlayersByTeam(event.id).subscribe((data) => {
-        this.players = [];
-        this.playing11 = [];
-        this.nonPlaying11 = [];
-        data.map((player: any) => {
-          this.players.push(player);
-          if (!player.is_playing11) {
-            this.nonPlaying11.push(player);
-          }
-           else {
-            //check playing position and add to playing11
-            if (
-              player.playing11_position >= 1 &&
-              player.playing11_position <= 11
-            ) {
-              this.playing11[player.playing11_position - 1] = player;
-            }
-          }
-        });
+
+      const playersData = await firstValueFrom(
+        this.teamService.getPlayersByTeam(event.id)
+      );
+
+      this.players = playersData || [];
+      this.playing11 = Array(11).fill(null);
+      this.nonPlaying11 = [];
+
+      this.players.forEach((player: any) => {
+        if (
+          player.is_playing11 &&
+          player.playing11_position >= 1 &&
+          player.playing11_position <= 11
+        ) {
+          this.playing11[player.playing11_position - 1] = player;
+        } else {
+          this.nonPlaying11.push(player);
+        }
       });
+
       await this.getPlaying11s();
-   
-    
+
+      this.showPlayersPage = true;
       console.log(this.playing11);
     } catch (error) {
       this.messageService.add({
@@ -147,9 +148,6 @@ export class TeamsPageComponent {
         summary: "Error",
         detail: "Something went wrong",
       });
-    }
-    finally {
-      this.showPlayersPage = true;
     }
   }
 

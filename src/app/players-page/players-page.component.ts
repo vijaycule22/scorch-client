@@ -15,7 +15,6 @@ interface Country {
 @Component({
   selector: "app-players-page",
   standalone: false,
-
   templateUrl: "./players-page.component.html",
   styleUrl: "./players-page.component.scss",
 })
@@ -26,45 +25,55 @@ export class PlayersPageComponent {
   @Input() teamId: any;
   @Input() userId: any;
   @Input() showPlaying11: boolean = false;
-  savePlaying11Data: any = {};  
+  savePlaying11Data: any = {};
   showSaveButton: boolean = false;
 
-  constructor(public teamService: TeamsService,
+  constructor(
+    public teamService: TeamsService,
     private messageService: MessageService
   ) {}
 
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['teamId']) {
+    if (changes["teamId"]) {
       this.showSaveButton = false;
 
-      console.log('Data changed:', changes['teamId'].currentValue);
-      this.teamId = changes['teamId'].currentValue;
+      console.log("Data changed:", changes["teamId"].currentValue);
+      this.teamId = changes["teamId"].currentValue;
     }
     if (changes["previousValue"] !== changes["currentValue"]) {
-      this.showPlaying11 = changes['showPlaying11'].currentValue;
-      console.log('showPlaying11:', this.showPlaying11);
+      this.showPlaying11 = changes["showPlaying11"].currentValue;
+      console.log("showPlaying11:", this.showPlaying11);
     }
   }
 
   drop(event: CdkDragDrop<string[]>): void {
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     } else {
-      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     }
-    
+
     this.updatePlaying11Positions();
     this.preparePlaying11Data();
   }
-  
+
   private updatePlaying11Positions(): void {
     this.playing11.forEach((player: any, index: number) => {
       player.playing11_position = index + 1;
     });
   }
-  
+
   private preparePlaying11Data(): void {
     this.showSaveButton = true;
     this.savePlaying11Data = {
@@ -73,12 +82,11 @@ export class PlayersPageComponent {
       players: this.playing11.map((player: any, index: number) => ({
         playerId: player.id,
         playing11Position: index + 1,
-      }))
+      })),
     };
-    console.log(this.savePlaying11Data);
   }
 
-  savePlaying11(){
+  savePlaying11() {
     this.showPlaying11 = false;
     this.showSaveButton = false;
     this.teamService.savePlaying11(this.savePlaying11Data).subscribe({
@@ -97,5 +105,4 @@ export class PlayersPageComponent {
       },
     });
   }
-  
 }
