@@ -6,6 +6,7 @@
 // Import themes (adjust the path if needed)
 @use "primeflex/themes/primeone-dark" as *;
 @use "primeflex/themes/primeone-light" as *;
+@use "primeicons/primeicons.css" as *;
 
 * {
   box-sizing: border-box;

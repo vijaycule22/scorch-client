@@ -2,17 +2,17 @@
 
 <div cdkDropListGroup>
     <div class="example-container">
-        <h2 class="mb-2">Playing 11</h2>
+        <h2 class="mb-2">Playing XI</h2>
         <p class="opacity-50 mb-2">
             Move players by grabbing and dropping</p>
 
         <div *ngIf="showPlaying11" cdkDropList [cdkDropListData]="playing11" class="example-list mat-drag-drop-container" (cdkDropListDropped)="drop($event)">
             @for (item of playing11;let i = $index; track item) {
             <div class="example-box mat-drag-item" cdkDrag>
-
+                
                 <div>
-                   <div class="inline-block px-1"> {{i+1+ '.'}}</div> {{item?.name}} {{item?.is_captain ? '(c)' : ''}} <span class="opacity-50 font-bold"> ({{teamService.playerRoles[item?.role_id - 1]}})</span>
-                </div>
+                    <div class="inline-block px-1"> {{i+1+ '.'}}</div> {{item?.name}} {{item?.is_captain ? '(c)' : ''}} <span class="opacity-50 font-bold"> ({{teamService.playerRoles[item?.role_id - 1]}})</span>
+                 </div>
                 <!-- <span> 
                     <p-badge icon="pi pi-star-fill" class="mr-1" [value]="item?.player_rating"></p-badge>
                     ({{item?.price | indianCurrencyRupee}})</span> -->
