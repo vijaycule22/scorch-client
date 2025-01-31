@@ -28,7 +28,7 @@ import { DialogModule } from "primeng/dialog";
 import { SelectModule } from "primeng/select";
 import { BadgeModule } from "primeng/badge";
 import { OverlayBadgeModule } from "primeng/overlaybadge";
-import { SkeletonModule } from 'primeng/skeleton';
+import { SkeletonModule } from "primeng/skeleton";
 
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { providePrimeNG } from "primeng/config";
@@ -94,7 +94,14 @@ import { IndianCurrencyRupeePipe } from "./pipes/indian-currency-rupee.pipe";
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
-    providePrimeNG({ theme: { preset: Aura } }),
+    providePrimeNG({
+      theme: {
+        preset: Aura,
+        options: {
+          darkModeSelector: false || "none",
+        },
+      },
+    }),
     provideHttpClient(withInterceptorsFromDi()),
     MessageService,
     {

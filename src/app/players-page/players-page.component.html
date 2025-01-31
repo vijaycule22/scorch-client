@@ -3,6 +3,8 @@
 <div cdkDropListGroup>
     <div class="example-container">
         <h2 class="mb-2">Playing 11</h2>
+        <p class="opacity-50 mb-2">
+            Move players by grabbing and dropping</p>
 
         <div *ngIf="showPlaying11" cdkDropList [cdkDropListData]="playing11" class="example-list mat-drag-drop-container" (cdkDropListDropped)="drop($event)">
             @for (item of playing11;let i = $index; track item) {
@@ -56,7 +58,7 @@
             </div>
         </div>
 
-        <button *ngIf="showSaveButton" pButton label="Save" icon="pi pi-save" (click)="savePlaying11()" class="w-full" type="button" ></button>
+        <button *ngIf="showSaveButton" pButton label="Save" icon="pi pi-save" (click)="savePlaying11()" class="w-full mt-2" type="button" ></button>
 
     </div>
     <div class="example-container">

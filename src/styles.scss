@@ -1,7 +1,11 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@import "primeicons/primeicons.css";
-@import "primeflex/primeflex.css";
+
+// @use "primeflex/primeflex" as *; // Import PrimeFlex utilities
+
+// Import themes (adjust the path if needed)
+@use "primeflex/themes/primeone-dark" as *;
+@use "primeflex/themes/primeone-light" as *;
 
 * {
   box-sizing: border-box;
@@ -81,6 +85,11 @@ body {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
