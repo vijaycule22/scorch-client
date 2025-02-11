@@ -5,7 +5,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from "@angular/cdk/drag-drop";
-import { TeamsService } from "../teams-page/teams.service";
+import { TeamsService } from "../services/teams.service";
 
 interface Country {
   name: string;
@@ -16,7 +16,6 @@ interface Country {
   selector: "app-players-page",
   standalone: false,
   templateUrl: "./players-page.component.html",
-  styleUrl: "./players-page.component.scss",
 })
 export class PlayersPageComponent {
   @Input() players: any[] = [];

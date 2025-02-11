@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { MessageService } from "primeng/api";
-import { TeamsService } from "./teams.service";
+import { TeamsService } from "../services/teams.service";
 import { AuthService } from "../services/auth.service";
 import { firstValueFrom } from "rxjs";
 

@@ -12,17 +12,22 @@
   
       <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
         <div>
-          <label for="email" class="block text-900 font-medium mb-2">Email</label>
-          <input id="email" type="email" placeholder="Email address" pInputText class="w-full mb-3" formControlName="email">
-          <small *ngIf="signInForm?.get('email')?.invalid && signInForm?.get('email')?.touched" class="p-error">
-            Please enter a valid email address.
-          </small>
+          <div class="mb-3">
+            <label for="email" class="block text-900 font-medium mb-2">Email</label>
+            <input id="email" type="email" placeholder="Email address" pInputText class="w-full" formControlName="email">
+            <small class="text-red-500" *ngIf="signInForm?.get('email')?.invalid && signInForm?.get('email')?.touched">
+              Please enter a valid email address.
+            </small>
+          </div>
+
+          <div class="mb-3">
+            <label for="password" class="block text-900 font-medium mb-2">Password</label>
+            <input id="password" type="password" placeholder="Password" pInputText class="w-full" formControlName="password">
+            <small class="text-red-500" *ngIf="signInForm?.get('password')?.invalid && signInForm?.get('password')?.touched">
+              Password is required.
+            </small>
+          </div>
   
-          <label for="password" class="block text-900 font-medium mb-2">Password</label>
-          <input id="password" type="password" placeholder="Password" pInputText class="w-full mb-3" formControlName="password">
-          <small *ngIf="signInForm?.get('password')?.invalid && signInForm?.get('password')?.touched" class="p-error">
-            Password is required.
-          </small>
   
           <div class="flex align-items-center justify-content-between mb-6">
             <div class="flex align-items-center">
